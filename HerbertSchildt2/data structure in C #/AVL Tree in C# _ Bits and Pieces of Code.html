@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVL Tree in C# | Bits and Pieces of Code</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://simpledevcode.wordpress.com/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="https://s0.wp.com/wp-content/themes/pub/expound/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<meta name="google-site-verification" content="yYGx6G4JCsmskKQFHlgd2QfNr12FAwNtD-NBaCBoQWo">
+<meta name="msvalidate.01" content="F52F066BD1F737D11414A679443E591C">
+<meta name="p:domain_verify" content="fe7374f53c5cad039b535089146c41a1">
+<meta name="yandex-verification" content="4ea9e658343a3bf4">
+<link rel="alternate" type="application/rss+xml" title="Bits and Pieces of Code » Feed" href="https://simpledevcode.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Bits and Pieces of Code » Comments Feed" href="https://simpledevcode.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Bits and Pieces of Code » AVL Tree in C# Comments Feed" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/feed/">
+<script type="text/javascript" async="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/platform.js"></script><script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./AVL Tree in C# _ Bits and Pieces of Code_files/saved_resource" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./AVL Tree in C# _ Bits and Pieces of Code_files/saved_resource(1)"></script>
+<link rel="stylesheet" id="all-css-0" href="./AVL Tree in C# _ Bits and Pieces of Code_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://simpledevcode.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="jQuery simple example" href="https://simpledevcode.wordpress.com/2014/08/31/jquery-simple-example/">
+<link rel="next" title="Installing Infinity Conky Theme for Ubuntu/Linux/Fedora" href="https://simpledevcode.wordpress.com/2014/09/19/installing-infinity-conky-theme-for-ubuntulinuxfedora/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./AVL Tree in C# _ Bits and Pieces of Code_files/AVL Tree in C# _ Bits and Pieces of Code.html">
+<link rel="shortlink" href="http://wp.me/p4pM49-4l">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Fsimpledevcode.wordpress.com%2F2014%2F09%2F16%2Favl-tree-in-c%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Fsimpledevcode.wordpress.com%2F2014%2F09%2F16%2Favl-tree-in-c%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="AVL Tree in C#">
+<meta property="og:url" content="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/">
+<meta property="og:description" content="AVL Tree is a self balancing binary tree data structure. It has a very efficient Insert, Delete, and Find times. In terms of the depth of an AVL tree on both sides, it differs at most by 1 level. A...">
+<meta property="article:published_time" content="2014-09-16T17:20:02+00:00">
+<meta property="article:modified_time" content="2015-08-08T02:40:00+00:00">
+<meta property="og:site_name" content="Bits and Pieces of Code">
+<meta property="og:image" content="https://simpledevcode.files.wordpress.com/2014/09/capture1.png">
+<meta property="og:image:width" content="353">
+<meta property="og:image:height" content="572">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@karimo_afc">
+<meta name="twitter:image:src" content="https://simpledevcode.files.wordpress.com/2014/09/capture1.png?w=640">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@karimo_afc">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://simpledevcode.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://simpledevcode.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://simpledevcode.wordpress.com/osd.xml" title="Bits and Pieces of Code">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<meta name="application-name" content="Bits and Pieces of Code"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="My personal place to share projects and code tutorials."><meta name="msapplication-task" content="name=Subscribe;action-uri=https://simpledevcode.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="AVL Tree in C# | Bits and Pieces of Code on WordPress.com">
+<meta name="description" content="AVL Tree is a self balancing binary tree data structure. It has a very efficient Insert, Delete, and Find times. In terms of the depth of an AVL tree on both sides, it differs at most by 1 level. At any other time where difference in height/depth is greater than 1 or less than -1,…">
+		<script type="text/javascript" src="./AVL Tree in C# _ Bits and Pieces of Code_files/amzn_ads.js"></script>
+		<script type="text/javascript">
+		try { amznads.getAds("3033"); } catch(e) { /* ignore */ }
+		</script><script type="text/javascript" src="./AVL Tree in C# _ Bits and Pieces of Code_files/bid"></script>
+		<script type="text/javascript">
+		var a9_p = amznads.getKeys(),
+		_ipw_custom = {
+			wordAds: '0',
+			adSafe: '0',
+			domain: 'simpledevcode.wordpress.com',
+			pageURL: 'https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/'
+		};
+		if("undefined"!=typeof a9_p&&""!=a9_p&&null!==a9_p&&"[object Array]"===Object.prototype.toString.call(a9_p)){var a="",b=0,c=a9_p.length;a9_p.sort();for(var d=0;d<c;d++){a9_p[d-b]=a9_p[d-b].replace(/a1x6p/,"a160x600p");var e=a9_p[d-b].split("p");e[0]==a&&(a9_p.splice(d-b,1),b++);a=e[0]}_ipw_custom.amznPay=a9_p};document.close();
+		</script>		<!-- IPONWEB header script -->
+		<script type="text/javascript">
+			window.__ATA = {
+				scriptSrc: '//s.pubmine.com/showad.js',
+				slotPrefix: 'automattic-id-',
+				initAd: function(o) {
+					var o = o || {},
+						g = window,
+						d = g.document,
+						wr = d.write,
+						id = g.__ATA.id();
+					wr.call(d, '<div id="' + id + '" data-section="' + (o.sectionId || 0) + '"' + (o.type ? ('data-type="' + o.type + '"') : '') + ' ' + (o.forcedUrl ? ('data-forcedurl="' + o.forcedUrl + '"') : '') + ' style="width:' + (o.width || 0) + 'px; height:' + (o.height || 0) + 'px;">');
+					g.__ATA.displayAd(id);
+					wr.call(d, '</div>');
+				},
+				displayAd: function(id) {
+					window.__ATA.ids = window.__ATA.ids || {};
+					window.__ATA.ids[id] = 1;
+				},
+				customParams: _ipw_custom,
+				id: function() {
+					return window.__ATA.slotPrefix + (parseInt(Math.random() * 10000, 10) + 1 + (new Date()).getMilliseconds());
+				}
+			};
+			(function(d, ata) {
+				var pr = "https:" === d.location.protocol ? "https:" : "http:",
+					src = pr + ata.scriptSrc,
+					st = "text/javascript";
+				d.write('<scr' + 'ipt type="' + st + '" src="' + src + '"><\/scr' + 'ipt>');
+			})(window.document, window.__ATA);
+		</script><script type="text/javascript" src="./AVL Tree in C# _ Bits and Pieces of Code_files/showad.js"></script>
+		<script type="text/javascript">
+		jQuery(window).ready(function () {
+			jQuery("a.wpa-about").text("About these ads");
+		});
+		</script><link rel="stylesheet" type="text/css" href="./AVL Tree in C# _ Bits and Pieces of Code_files/shCore.css"><link rel="stylesheet" type="text/css" href="./AVL Tree in C# _ Bits and Pieces of Code_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/ga.js"></script>
+<script charset="utf-8" src="./AVL Tree in C# _ Bits and Pieces of Code_files/rate.php"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./AVL Tree in C# _ Bits and Pieces of Code_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./AVL Tree in C# _ Bits and Pieces of Code_files/services.css"><style type="text/css" id="pd_popup_holder_style_7497548_post_269">#pd_popup_holder_7497548_post_269 { position:absolute; display:none; width:350px; height:auto; top:0px; left:0px; z-index:10000; border:solid 1px #CCC; background-color:white; padding:0px 15px;font-family:Arial,Sans;box-shadow: -10px 10px 20px rgba(0, 0, 0, .5);-webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25);-moz-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25); }</style></head>
+
+<body class="single single-post postid-269 single-format-standard mp6 customizer-styles-applied highlander-enabled highlander-light">
+<div id="page" class="hfeed site">
+		<header id="masthead" class="site-header" role="banner">
+		<div class="site-branding">
+			<a href="https://simpledevcode.wordpress.com/" class="wrapper-link">
+				</a><div class="site-title-group"><a href="https://simpledevcode.wordpress.com/" class="wrapper-link">
+					</a><h1 class="site-title"><a href="https://simpledevcode.wordpress.com/" class="wrapper-link"></a><a href="https://simpledevcode.wordpress.com/" title="Bits and Pieces of Code" rel="home">Bits and Pieces of Code</a></h1>
+					<h2 class="site-description">My personal place to share projects and code tutorials.</h2>
+				</div>
+			
+		</div>
+
+		<nav id="site-navigation" class="navigation-main" role="navigation">
+			<h1 class="menu-toggle">Menu</h1>
+			<div class="screen-reader-text skip-link"><a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#content" title="Skip to content">Skip to content</a></div>
+
+			<div class="menu-menu-1-container"><ul id="menu-menu-1" class="menu"><li id="menu-item-90" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-90"><a href="https://simpledevcode.wordpress.com/">Home</a></li>
+<li id="menu-item-89" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-89"><a href="https://simpledevcode.wordpress.com/about/">About</a></li>
+<li id="menu-item-221" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-221"><a href="https://simpledevcode.wordpress.com/personal-projects/">Personal Projects</a></li>
+<li id="menu-item-132" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-132"><a href="https://simpledevcode.wordpress.com/category/c/">C#</a></li>
+<li id="menu-item-720" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-720"><a href="https://simpledevcode.wordpress.com/category/c-2/">C++</a></li>
+<li id="menu-item-134" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-134"><a href="https://simpledevcode.wordpress.com/category/java/">Java</a></li>
+<li id="menu-item-135" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-135"><a href="https://simpledevcode.wordpress.com/category/searching-sorting/">Searching &amp; Sorting</a></li>
+<li id="menu-item-469" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-469"><a href="https://simpledevcode.wordpress.com/category/database/">Database</a></li>
+<li id="menu-item-136" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-136"><a href="https://simpledevcode.wordpress.com/category/data-structures/">Data Structures</a></li>
+<li id="menu-item-718" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-718"><a href="https://simpledevcode.wordpress.com/category/javascript-2/">Javascript</a></li>
+<li id="menu-item-719" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-719"><a href="https://simpledevcode.wordpress.com/category/htmlcss/">HTML/CSS</a></li>
+</ul></div>					</nav><!-- #site-navigation -->
+	</header><!-- #masthead -->
+
+	<div id="main" class="site-main">
+
+	<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main">
+
+		
+			
+<article id="post-269" class="post-269 post type-post status-publish format-standard has-post-thumbnail hentry category-c category-data-structures category-java category-searching-sorting tag-algorithm tag-avl-tree tag-big-o tag-binary-search-tree tag-bst tag-c-programming tag-c-4 tag-cc tag-computer-science tag-data-structures-2 tag-how-to-implement-avl-tree tag-java-2 tag-node tag-recursive tag-searching tag-self-balancing tag-sorting tag-tree tag-tree-rotation tag-tutorial">
+	<header class="entry-header">
+		<h1 class="entry-title">AVL Tree in C#</h1>
+
+		<div class="entry-meta">
+			<a class="author" rel="author" href="https://simpledevcode.wordpress.com/author/karimo818/">Karim Oumghar</a> / <a class="entry-date" href="./AVL Tree in C# _ Bits and Pieces of Code_files/AVL Tree in C# _ Bits and Pieces of Code.html">September 16, 2014</a>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<div class="pd-rating" id="pd_rating_holder_7497548_post_269" style="display: inline-block;"><div class="rating-icons" id="pd_rate_7497548_post_269" style="float:left;"><div class="rating-star-icon" onmouseout="PDRTJS_7497548_post_269.rebuild();" onclick="PDRTJS_7497548_post_269.rate(1);" onmouseover="PDRTJS_7497548_post_269.hover(1);" id="PDRTJS_7497548_post_269_stars_1" style="background-size: 32px 48px !important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(https://polldaddy.com/images/ratings/star-green-sml.png) top left; float: left; padding: 0px; margin: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_7497548_post_269.rebuild();" onclick="PDRTJS_7497548_post_269.rate(2);" onmouseover="PDRTJS_7497548_post_269.hover(2);" id="PDRTJS_7497548_post_269_stars_2" style="background-size: 32px 48px !important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(https://polldaddy.com/images/ratings/star-green-sml.png) top left; float: left; padding: 0px; margin: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_7497548_post_269.rebuild();" onclick="PDRTJS_7497548_post_269.rate(3);" onmouseover="PDRTJS_7497548_post_269.hover(3);" id="PDRTJS_7497548_post_269_stars_3" style="background-size: 32px 48px !important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(https://polldaddy.com/images/ratings/star-green-sml.png) top left; float: left; padding: 0px; margin: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_7497548_post_269.rebuild();" onclick="PDRTJS_7497548_post_269.rate(4);" onmouseover="PDRTJS_7497548_post_269.hover(4);" id="PDRTJS_7497548_post_269_stars_4" style="background-size: 32px 48px !important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(https://polldaddy.com/images/ratings/star-green-sml.png) top left; float: left; padding: 0px; margin: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_7497548_post_269.rebuild();" onclick="PDRTJS_7497548_post_269.rate(5);" onmouseover="PDRTJS_7497548_post_269.hover(5);" id="PDRTJS_7497548_post_269_stars_5" style="background-size: 32px 48px !important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(https://polldaddy.com/images/ratings/star-green-sml.png) top left; float: left; padding: 0px; margin: 0px; margin-right: 1px;">&nbsp;</div></div><span style="float:left;">&nbsp;</span><div id="rating_info_7497548_post_269" style="display:block;float:left;background:url(https://polldaddy.com/images/ratings/info.png) no-repeat 3px 2px;width:16px;height:16px;cursor:pointer; null " onclick="javascript:PDRTJS_7497548_post_269.togglePopup();return false;"><span style="display:none;">i</span></div><div class="pd_popup_holder" id="pd_popup_holder_7497548_post_269">&nbsp;</div><div class="rating-msg" id="PDRTJS_7497548_post_269_msg" style="float:left; padding-left: 5px; text-align: left; font:normal bold 10px/6px trebuchet ms; color: #FFFFFF;">1 Vote</div><p style="padding: 0px; margin: 0px; clear: both;"></p></div><br><p><strong>AVL Tree</strong> is a self balancing <a title="Binary Search Trees C#" href="https://simpledevcode.wordpress.com/2014/01/19/binary-search-trees-c/">binary tree data structure</a>. It has a very efficient Insert, Delete, and Find times. In terms of the depth of an AVL tree on both sides, it differs at most by 1 level. At any other time where difference in height/depth is greater than 1 or less than -1, rebalancing occurs. In terms of space it has a O(n) complexity. With time complexity it has O(log n) for all cases (worst, average, best). Comparing this with the commonly known <a href="https://simpledevcode.wordpress.com/2014/12/25/red-black-tree-in-c/">Red-Black Tree</a>, the AVL Tree is more rigidly balanced than the RB Tree, thus while having fast retrieval times, the RB Tree is more efficient in insertion &amp; deletion times. Nonetheless, both have a runtime of O(log n) and are self balancing. The name AVL comes from the creators of this algorithm (Adelson-Velskii and Landis).</p>
+<h3><span style="color:#000000;"><strong>Why the need to balance?</strong></span></h3>
+<p>Consider a regular binary tree or a binary search tree. We know that in the worst case retrieval and insertion is O(n), when the tree looks like a <a href="https://simpledevcode.wordpress.com/2014/01/18/queues-and-linked-lists/">linked list</a>, and traversal is pretty much like that of a linked list. This is quite inefficient and costs time. To remedy and eliminate this problem, we introduce the idea of a self balancing tree; through height checking and rotations, maintains a more balanced structure; thus less time to lookup some data.</p>
+<div style="width: 157px" class="wp-caption aligncenter"><img class="" src="https://i0.wp.com/algs4.cs.princeton.edu/32bst/images/bst-worst.png" alt="" width="151" height="135"><p class="wp-caption-text">In the worst case, a regular BST or Binary Tree takes the shape resembling a linked list.</p></div>
+<h3><span style="color:#000000;"><strong>The algorithm of an AVL Tree is as follows:</strong></span></h3>
+<ul>
+<li>Get the height difference from both sides of the tree, using recursion and the difference in balance is the height of the left side minus&nbsp;height of the right side</li>
+<li>If the balance is greater 1 or less than -1, rotations must occur to balance the tree, if the balance is -1,0,or 1, then no rotations are needed.</li>
+<li>Nodes in the AVL Tree also store their height, for example, nodes at the top are higher than nodes at the bottom therefore the root would store the highest height while leaf nodes at the bottom would store a height of 1</li>
+</ul>
+<h3><span style="color:#000000;"><strong>In this kind of self balancing tree, we have what are called rotations. The data structure is as follows:</strong></span></h3>
+<ul>
+<li>There are 4 cases for rotations: right-right, right-left, left-left, and left-right</li>
+<li>Right-Right: All nodes are to the right of the root/parent, the pivot becomes the new parent/root and original parent/root node becomes a child of the pivot</li>
+<li>Right-Left: Pivot is the right child of the root/parent</li>
+<li>Left-Left: All nodes are to the left of the root</li>
+<li>Left-Right: Pivot is the left child of the root/parent</li>
+<li>To go even further with how rotations work:
+<ul>
+<li>A generic rotation in pseudocode:</li>
+<li>Pivot = Parent.L<br>
+Parent.L = Pivot.L<br>
+Pivot.R = Parent<br>
+return Pivot</li>
+<li>Illustrations:
+<p></p><div style="width: 810px" class="wp-caption alignnone"><img style="background-color:white;" src="./AVL Tree in C# _ Bits and Pieces of Code_files/5a863-800px-tree_rebalancing.gif" alt="" width="800" height="566"><p class="wp-caption-text"><span style="color:#000000;">Rotation Illustrations</span></p></div></li>
+</ul>
+</li>
+</ul>
+<h3><span style="color:#000000;"><strong>&nbsp;Methods:</strong></span></h3>
+<ul>
+<li>Insert():&nbsp; after inserting a new node using normal procedure (recursive or non recursive), its necessary to check each of the nodes ancestors for an unbalance in the tree, therefore calling the Balance() method, basically, insert and then a small fix.
+<ul>
+<li>To go into further detail, we have private and public Insert methods. The private method inserts recursively and it takes a new node object, and a node reference/pointer, and it is here where we call Balance_Tree(). In the public method, we call the private recursive insert method and we need to set our root pointer/reference equal to the method call because the private method returns type Node. Also because of the recursion, when we perform a rotation from calling the Balance_Tree() method, we need to recurse up one level and make the necessary re-connections of parent to pivot nodes. <a href="http://www.programmingspark.com/2013/03/Working-of-Recursion-in-detail-using-Stack.html">The best way to visualise this recursion is to draw a stack frame of calls in order to see the process better.</a></li>
+<li>In short, our base case is that if our current node we use to traverse the tree to insert is null, current =&nbsp; new node and return current. That would go to our next statement which recurses up one level and sets current-&gt;left/right to the newly added node. Then we balance our tree by calling Balance_Tree. Once rotations have been done, we return our pivot node and re-check the balance factor once again to make sure we have no imbalances. Recurse up a level once more and reconnect the rotated nodes to the parent node.</li>
+</ul>
+</li>
+<li>Search(): Searching is more optimized since things are more balanced, therefore normal implementation in this function is sufficient.</li>
+<li>Delete(): Just like Insert(), after Deletion occurs we have to call Balance() to check each of the nodes for any unbalance in the tree, we have a public Delete() and a private recursive Delete() that does the actual work</li>
+<li>RotateRR(), RotateLL(), RotateLR(), and RotateRL() all take in a node pointer/reference argument, and return a pivot node with the rotation</li>
+<li>GetHeight(): takes a node reference/pointer argument, and returns the height. <a href="http://condor.depaul.edu/glancast/383class/docs/slides/Feb22/slide5.html">More info here on why we add 1 to the height.</a></li>
+<li>Balance_Factor(): takes a Node reference as an argument, this will recursively get the heights for both sides and return an integer (left height – right height)</li>
+<li>Balance_Tree(): This method takes a node pointer/reference passed into it. When we balance the tree, the algorithm in goes something like this:
+<ul>
+<li>If balance factor is 2, we first check if we have a left-left case, if we do then we perform that rotation, else, we perform a left-right rotation</li>
+<li>If balance factor is -2, we first check if we have a right-right case, if we do then we perform a right right rotation, else, we perform a right-left rotation</li>
+</ul>
+</li>
+</ul>
+<h4><span style="color:#000000;"><strong>Implementation in C#</strong></span></h4>
+<div><div id="highlighter_704120" class="syntaxhighlighter  csharp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div><div class="line number55 index54 alt2">55</div><div class="line number56 index55 alt1">56</div><div class="line number57 index56 alt2">57</div><div class="line number58 index57 alt1">58</div><div class="line number59 index58 alt2">59</div><div class="line number60 index59 alt1">60</div><div class="line number61 index60 alt2">61</div><div class="line number62 index61 alt1">62</div><div class="line number63 index62 alt2">63</div><div class="line number64 index63 alt1">64</div><div class="line number65 index64 alt2">65</div><div class="line number66 index65 alt1">66</div><div class="line number67 index66 alt2">67</div><div class="line number68 index67 alt1">68</div><div class="line number69 index68 alt2">69</div><div class="line number70 index69 alt1">70</div><div class="line number71 index70 alt2">71</div><div class="line number72 index71 alt1">72</div><div class="line number73 index72 alt2">73</div><div class="line number74 index73 alt1">74</div><div class="line number75 index74 alt2">75</div><div class="line number76 index75 alt1">76</div><div class="line number77 index76 alt2">77</div><div class="line number78 index77 alt1">78</div><div class="line number79 index78 alt2">79</div><div class="line number80 index79 alt1">80</div><div class="line number81 index80 alt2">81</div><div class="line number82 index81 alt1">82</div><div class="line number83 index82 alt2">83</div><div class="line number84 index83 alt1">84</div><div class="line number85 index84 alt2">85</div><div class="line number86 index85 alt1">86</div><div class="line number87 index86 alt2">87</div><div class="line number88 index87 alt1">88</div><div class="line number89 index88 alt2">89</div><div class="line number90 index89 alt1">90</div><div class="line number91 index90 alt2">91</div><div class="line number92 index91 alt1">92</div><div class="line number93 index92 alt2">93</div><div class="line number94 index93 alt1">94</div><div class="line number95 index94 alt2">95</div><div class="line number96 index95 alt1">96</div><div class="line number97 index96 alt2">97</div><div class="line number98 index97 alt1">98</div><div class="line number99 index98 alt2">99</div><div class="line number100 index99 alt1">100</div><div class="line number101 index100 alt2">101</div><div class="line number102 index101 alt1">102</div><div class="line number103 index102 alt2">103</div><div class="line number104 index103 alt1">104</div><div class="line number105 index104 alt2">105</div><div class="line number106 index105 alt1">106</div><div class="line number107 index106 alt2">107</div><div class="line number108 index107 alt1">108</div><div class="line number109 index108 alt2">109</div><div class="line number110 index109 alt1">110</div><div class="line number111 index110 alt2">111</div><div class="line number112 index111 alt1">112</div><div class="line number113 index112 alt2">113</div><div class="line number114 index113 alt1">114</div><div class="line number115 index114 alt2">115</div><div class="line number116 index115 alt1">116</div><div class="line number117 index116 alt2">117</div><div class="line number118 index117 alt1">118</div><div class="line number119 index118 alt2">119</div><div class="line number120 index119 alt1">120</div><div class="line number121 index120 alt2">121</div><div class="line number122 index121 alt1">122</div><div class="line number123 index122 alt2">123</div><div class="line number124 index123 alt1">124</div><div class="line number125 index124 alt2">125</div><div class="line number126 index125 alt1">126</div><div class="line number127 index126 alt2">127</div><div class="line number128 index127 alt1">128</div><div class="line number129 index128 alt2">129</div><div class="line number130 index129 alt1">130</div><div class="line number131 index130 alt2">131</div><div class="line number132 index131 alt1">132</div><div class="line number133 index132 alt2">133</div><div class="line number134 index133 alt1">134</div><div class="line number135 index134 alt2">135</div><div class="line number136 index135 alt1">136</div><div class="line number137 index136 alt2">137</div><div class="line number138 index137 alt1">138</div><div class="line number139 index138 alt2">139</div><div class="line number140 index139 alt1">140</div><div class="line number141 index140 alt2">141</div><div class="line number142 index141 alt1">142</div><div class="line number143 index142 alt2">143</div><div class="line number144 index143 alt1">144</div><div class="line number145 index144 alt2">145</div><div class="line number146 index145 alt1">146</div><div class="line number147 index146 alt2">147</div><div class="line number148 index147 alt1">148</div><div class="line number149 index148 alt2">149</div><div class="line number150 index149 alt1">150</div><div class="line number151 index150 alt2">151</div><div class="line number152 index151 alt1">152</div><div class="line number153 index152 alt2">153</div><div class="line number154 index153 alt1">154</div><div class="line number155 index154 alt2">155</div><div class="line number156 index155 alt1">156</div><div class="line number157 index156 alt2">157</div><div class="line number158 index157 alt1">158</div><div class="line number159 index158 alt2">159</div><div class="line number160 index159 alt1">160</div><div class="line number161 index160 alt2">161</div><div class="line number162 index161 alt1">162</div><div class="line number163 index162 alt2">163</div><div class="line number164 index163 alt1">164</div><div class="line number165 index164 alt2">165</div><div class="line number166 index165 alt1">166</div><div class="line number167 index166 alt2">167</div><div class="line number168 index167 alt1">168</div><div class="line number169 index168 alt2">169</div><div class="line number170 index169 alt1">170</div><div class="line number171 index170 alt2">171</div><div class="line number172 index171 alt1">172</div><div class="line number173 index172 alt2">173</div><div class="line number174 index173 alt1">174</div><div class="line number175 index174 alt2">175</div><div class="line number176 index175 alt1">176</div><div class="line number177 index176 alt2">177</div><div class="line number178 index177 alt1">178</div><div class="line number179 index178 alt2">179</div><div class="line number180 index179 alt1">180</div><div class="line number181 index180 alt2">181</div><div class="line number182 index181 alt1">182</div><div class="line number183 index182 alt2">183</div><div class="line number184 index183 alt1">184</div><div class="line number185 index184 alt2">185</div><div class="line number186 index185 alt1">186</div><div class="line number187 index186 alt2">187</div><div class="line number188 index187 alt1">188</div><div class="line number189 index188 alt2">189</div><div class="line number190 index189 alt1">190</div><div class="line number191 index190 alt2">191</div><div class="line number192 index191 alt1">192</div><div class="line number193 index192 alt2">193</div><div class="line number194 index193 alt1">194</div><div class="line number195 index194 alt2">195</div><div class="line number196 index195 alt1">196</div><div class="line number197 index196 alt2">197</div><div class="line number198 index197 alt1">198</div><div class="line number199 index198 alt2">199</div><div class="line number200 index199 alt1">200</div><div class="line number201 index200 alt2">201</div><div class="line number202 index201 alt1">202</div><div class="line number203 index202 alt2">203</div><div class="line number204 index203 alt1">204</div><div class="line number205 index204 alt2">205</div><div class="line number206 index205 alt1">206</div><div class="line number207 index206 alt2">207</div><div class="line number208 index207 alt1">208</div><div class="line number209 index208 alt2">209</div><div class="line number210 index209 alt1">210</div><div class="line number211 index210 alt2">211</div><div class="line number212 index211 alt1">212</div><div class="line number213 index212 alt2">213</div><div class="line number214 index213 alt1">214</div><div class="line number215 index214 alt2">215</div><div class="line number216 index215 alt1">216</div><div class="line number217 index216 alt2">217</div><div class="line number218 index217 alt1">218</div><div class="line number219 index218 alt2">219</div><div class="line number220 index219 alt1">220</div><div class="line number221 index220 alt2">221</div><div class="line number222 index221 alt1">222</div><div class="line number223 index222 alt2">223</div><div class="line number224 index223 alt1">224</div><div class="line number225 index224 alt2">225</div><div class="line number226 index225 alt1">226</div><div class="line number227 index226 alt2">227</div><div class="line number228 index227 alt1">228</div><div class="line number229 index228 alt2">229</div><div class="line number230 index229 alt1">230</div><div class="line number231 index230 alt2">231</div><div class="line number232 index231 alt1">232</div><div class="line number233 index232 alt2">233</div><div class="line number234 index233 alt1">234</div><div class="line number235 index234 alt2">235</div><div class="line number236 index235 alt1">236</div><div class="line number237 index236 alt2">237</div><div class="line number238 index237 alt1">238</div><div class="line number239 index238 alt2">239</div><div class="line number240 index239 alt1">240</div><div class="line number241 index240 alt2">241</div><div class="line number242 index241 alt1">242</div><div class="line number243 index242 alt2">243</div><div class="line number244 index243 alt1">244</div><div class="line number245 index244 alt2">245</div><div class="line number246 index245 alt1">246</div><div class="line number247 index246 alt2">247</div><div class="line number248 index247 alt1">248</div><div class="line number249 index248 alt2">249</div><div class="line number250 index249 alt1">250</div><div class="line number251 index250 alt2">251</div><div class="line number252 index251 alt1">252</div><div class="line number253 index252 alt2">253</div><div class="line number254 index253 alt1">254</div><div class="line number255 index254 alt2">255</div><div class="line number256 index255 alt1">256</div><div class="line number257 index256 alt2">257</div><div class="line number258 index257 alt1">258</div><div class="line number259 index258 alt2">259</div><div class="line number260 index259 alt1">260</div><div class="line number261 index260 alt2">261</div><div class="line number262 index261 alt1">262</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="csharp keyword">class</code> <code class="csharp plain">Program</code></div><div class="line number2 index1 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number3 index2 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">static</code> <code class="csharp keyword">void</code> <code class="csharp plain">Main(</code><code class="csharp keyword">string</code><code class="csharp plain">[] args)</code></div><div class="line number4 index3 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number5 index4 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">AVL tree = </code><code class="csharp keyword">new</code> <code class="csharp plain">AVL();</code></div><div class="line number6 index5 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">tree.Add(2);</code></div><div class="line number7 index6 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">tree.Add(1);</code></div><div class="line number8 index7 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">tree.Add(0);</code></div><div class="line number9 index8 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">tree.Add(-1);</code></div><div class="line number10 index9 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">tree.Add(-2);</code></div><div class="line number11 index10 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">tree.Add(3);</code></div><div class="line number12 index11 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">tree.Add(5);</code></div><div class="line number13 index12 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">tree.Add(4);</code></div><div class="line number14 index13 alt1">&nbsp;</div><div class="line number15 index14 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">tree.DisplayTree();</code></div><div class="line number16 index15 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number17 index16 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number18 index17 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">class</code> <code class="csharp plain">AVL</code></div><div class="line number19 index18 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number20 index19 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">class</code> <code class="csharp plain">Node</code></div><div class="line number21 index20 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number22 index21 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">public</code> <code class="csharp keyword">int</code> <code class="csharp plain">data;</code></div><div class="line number23 index22 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">public</code> <code class="csharp plain">Node left;</code></div><div class="line number24 index23 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">public</code> <code class="csharp plain">Node right;</code></div><div class="line number25 index24 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">public</code> <code class="csharp plain">Node(</code><code class="csharp keyword">int</code> <code class="csharp plain">data)</code></div><div class="line number26 index25 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number27 index26 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">this</code><code class="csharp plain">.data = data;</code></div><div class="line number28 index27 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number29 index28 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number30 index29 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Node root;</code></div><div class="line number31 index30 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">public</code> <code class="csharp plain">AVL()</code></div><div class="line number32 index31 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number33 index32 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number34 index33 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">public</code> <code class="csharp keyword">void</code> <code class="csharp plain">Add(</code><code class="csharp keyword">int</code> <code class="csharp plain">data)</code></div><div class="line number35 index34 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number36 index35 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Node newItem = </code><code class="csharp keyword">new</code> <code class="csharp plain">Node(data);</code></div><div class="line number37 index36 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(root == </code><code class="csharp keyword">null</code><code class="csharp plain">)</code></div><div class="line number38 index37 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number39 index38 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">root = newItem;</code></div><div class="line number40 index39 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number41 index40 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number42 index41 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number43 index42 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">root = RecursiveInsert(root, newItem);</code><code class="csharp comments">//root = null so we dont lose track of the root and we assign a new root if necessary</code></div><div class="line number44 index43 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number45 index44 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number46 index45 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp plain">Node RecursiveInsert(Node current, Node n)</code></div><div class="line number47 index46 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number48 index47 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(current == </code><code class="csharp keyword">null</code><code class="csharp plain">)</code><code class="csharp comments">//base case, we reach this when we go left or right until current is null</code></div><div class="line number49 index48 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number50 index49 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = n;</code></div><div class="line number51 index50 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">current;</code></div><div class="line number52 index51 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number53 index52 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code> <code class="csharp keyword">if</code> <code class="csharp plain">(n.data &lt; current.data)</code><code class="csharp comments">//if the new node is less than the current node</code></div><div class="line number54 index53 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number55 index54 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current.left = RecursiveInsert(current.left, n);</code><code class="csharp comments">//go left</code></div><div class="line number56 index55 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = balance_tree(current);</code><code class="csharp comments">//calling balance after recursion</code></div><div class="line number57 index56 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number58 index57 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code> <code class="csharp keyword">if</code> <code class="csharp plain">(n.data &gt; current.data)</code><code class="csharp comments">//if the new node is greater than the current node</code></div><div class="line number59 index58 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number60 index59 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current.right = RecursiveInsert(current.right, n);</code></div><div class="line number61 index60 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = balance_tree(current);</code></div><div class="line number62 index61 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number63 index62 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">current;</code></div><div class="line number64 index63 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number65 index64 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp plain">Node balance_tree(Node current)</code></div><div class="line number66 index65 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number67 index66 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code> <code class="csharp plain">b_factor = balance_factor(current);</code></div><div class="line number68 index67 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(b_factor &gt; 1)</code></div><div class="line number69 index68 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number70 index69 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(balance_factor(current.left) &gt; 0)</code></div><div class="line number71 index70 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number72 index71 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = RotateLL(current);</code></div><div class="line number73 index72 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number74 index73 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number75 index74 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number76 index75 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = RotateLR(current);</code></div><div class="line number77 index76 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number78 index77 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number79 index78 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code> <code class="csharp keyword">if</code> <code class="csharp plain">(b_factor &lt; -1)</code></div><div class="line number80 index79 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number81 index80 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(balance_factor(current.right) &gt; 0)</code></div><div class="line number82 index81 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number83 index82 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = RotateRL(current);</code></div><div class="line number84 index83 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number85 index84 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number86 index85 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number87 index86 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = RotateRR(current);</code></div><div class="line number88 index87 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number89 index88 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number90 index89 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">current;</code></div><div class="line number91 index90 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number92 index91 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">public</code> <code class="csharp keyword">void</code> <code class="csharp plain">Delete(</code><code class="csharp keyword">int</code> <code class="csharp plain">target)</code></div><div class="line number93 index92 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number94 index93 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Delete(root, target);</code></div><div class="line number95 index94 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number96 index95 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">public</code> <code class="csharp keyword">void</code> <code class="csharp plain">Find(</code><code class="csharp keyword">int</code> <code class="csharp plain">key)</code></div><div class="line number97 index96 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number98 index97 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(Find(key, root).data == key)</code></div><div class="line number99 index98 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number100 index99 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Console.WriteLine(</code><code class="csharp string">"{0} was found!"</code><code class="csharp plain">, key);</code></div><div class="line number101 index100 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number102 index101 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number103 index102 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number104 index103 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Console.WriteLine(</code><code class="csharp string">"Nothing found!"</code><code class="csharp plain">);</code></div><div class="line number105 index104 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number106 index105 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number107 index106 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp plain">Node Find(</code><code class="csharp keyword">int</code> <code class="csharp plain">target, Node current)</code></div><div class="line number108 index107 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number109 index108 alt2">&nbsp;</div><div class="line number110 index109 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(target &lt; current.data)</code></div><div class="line number111 index110 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number112 index111 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(target == current.data)</code></div><div class="line number113 index112 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number114 index113 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">current;</code></div><div class="line number115 index114 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number116 index115 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number117 index116 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">Find(target, current.left);</code></div><div class="line number118 index117 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number119 index118 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number120 index119 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number121 index120 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(target == current.data)</code></div><div class="line number122 index121 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number123 index122 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">current;</code></div><div class="line number124 index123 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number125 index124 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number126 index125 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">Find(target, current.right);</code></div><div class="line number127 index126 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number128 index127 alt1">&nbsp;</div><div class="line number129 index128 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number130 index129 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">public</code> <code class="csharp keyword">void</code> <code class="csharp plain">DisplayTree()</code></div><div class="line number131 index130 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number132 index131 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">InOrderDisplayTree(root);</code></div><div class="line number133 index132 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Console.ReadLine();</code></div><div class="line number134 index133 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number135 index134 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp keyword">void</code> <code class="csharp plain">InOrderDisplayTree(Node current)</code></div><div class="line number136 index135 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number137 index136 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(current != </code><code class="csharp keyword">null</code><code class="csharp plain">)</code></div><div class="line number138 index137 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number139 index138 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">InOrderDisplayTree(current.left);</code></div><div class="line number140 index139 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Console.Write(</code><code class="csharp string">"({0}) "</code><code class="csharp plain">, current.data);</code></div><div class="line number141 index140 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">InOrderDisplayTree(current.right);</code></div><div class="line number142 index141 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number143 index142 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number144 index143 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp keyword">int</code> <code class="csharp plain">max(</code><code class="csharp keyword">int</code> <code class="csharp plain">l, </code><code class="csharp keyword">int</code> <code class="csharp plain">r)</code><code class="csharp comments">//returns maximum of two integers</code></div><div class="line number145 index144 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number146 index145 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">l &gt; r ? l : r;</code></div><div class="line number147 index146 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number148 index147 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp keyword">int</code> <code class="csharp plain">getHeight(Node current)</code></div><div class="line number149 index148 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number150 index149 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code> <code class="csharp plain">height = 0;</code></div><div class="line number151 index150 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(current != </code><code class="csharp keyword">null</code><code class="csharp plain">)</code></div><div class="line number152 index151 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number153 index152 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code> <code class="csharp plain">l = getHeight(current.left);</code></div><div class="line number154 index153 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code> <code class="csharp plain">r = getHeight(current.right);</code></div><div class="line number155 index154 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code> <code class="csharp plain">m = max(l, r);</code></div><div class="line number156 index155 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">height = m + 1;</code></div><div class="line number157 index156 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number158 index157 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">height;</code></div><div class="line number159 index158 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number160 index159 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp keyword">int</code> <code class="csharp plain">balance_factor(Node current)</code></div><div class="line number161 index160 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number162 index161 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code> <code class="csharp plain">l = getHeight(current.left);</code></div><div class="line number163 index162 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code> <code class="csharp plain">r = getHeight(current.right);</code></div><div class="line number164 index163 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">int</code> <code class="csharp plain">b_factor = l - r;</code></div><div class="line number165 index164 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">b_factor;</code></div><div class="line number166 index165 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number167 index166 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp plain">Node RotateRR(Node parent)</code></div><div class="line number168 index167 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number169 index168 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Node pivot = parent.right;</code></div><div class="line number170 index169 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">parent.right = pivot.left;</code></div><div class="line number171 index170 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">pivot.left = parent;</code></div><div class="line number172 index171 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">pivot;</code></div><div class="line number173 index172 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number174 index173 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp plain">Node RotateLL(Node parent)</code></div><div class="line number175 index174 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number176 index175 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Node pivot = parent.left;</code></div><div class="line number177 index176 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">parent.left = pivot.right;</code></div><div class="line number178 index177 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">pivot.right = parent;</code></div><div class="line number179 index178 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">pivot;</code></div><div class="line number180 index179 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number181 index180 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp plain">Node RotateLR(Node parent)</code></div><div class="line number182 index181 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number183 index182 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Node pivot = parent.left;</code></div><div class="line number184 index183 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">parent.left = RotateRR(pivot);</code></div><div class="line number185 index184 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">RotateLL(parent);</code></div><div class="line number186 index185 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number187 index186 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp plain">Node RotateRL(Node parent)</code></div><div class="line number188 index187 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number189 index188 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Node pivot = parent.right;</code></div><div class="line number190 index189 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">parent.right = RotateLL(pivot);</code></div><div class="line number191 index190 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">RotateRR(parent);</code></div><div class="line number192 index191 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number193 index192 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">private</code> <code class="csharp plain">Node Delete(Node current, </code><code class="csharp keyword">int</code> <code class="csharp plain">target)</code></div><div class="line number194 index193 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number195 index194 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">Node parent;</code></div><div class="line number196 index195 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(current == </code><code class="csharp keyword">null</code><code class="csharp plain">)</code></div><div class="line number197 index196 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{ </code><code class="csharp keyword">return</code> <code class="csharp keyword">null</code><code class="csharp plain">; }</code></div><div class="line number198 index197 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number199 index198 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number200 index199 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp comments">//left subtree</code></div><div class="line number201 index200 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(target &lt; current.data)</code></div><div class="line number202 index201 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number203 index202 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current.left = Delete(current.left, target);</code></div><div class="line number204 index203 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(balance_factor(current) == -2)</code></div><div class="line number205 index204 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number206 index205 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(balance_factor(current.left) &lt;= 0)</code></div><div class="line number207 index206 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number208 index207 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = RotateRR(current);</code></div><div class="line number209 index208 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number210 index209 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number211 index210 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number212 index211 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = RotateRL(current);</code></div><div class="line number213 index212 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number214 index213 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number215 index214 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number216 index215 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp comments">//right subtree</code></div><div class="line number217 index216 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code> <code class="csharp keyword">if</code> <code class="csharp plain">(target &gt; current.data)</code></div><div class="line number218 index217 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number219 index218 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current.right = Delete(current.right, target);</code></div><div class="line number220 index219 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(balance_factor(current) == 2)</code></div><div class="line number221 index220 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number222 index221 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(balance_factor(current.right) &lt;= 0)</code></div><div class="line number223 index222 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number224 index223 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = RotateLL(current);</code></div><div class="line number225 index224 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number226 index225 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number227 index226 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number228 index227 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = RotateLR(current);</code></div><div class="line number229 index228 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number230 index229 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number231 index230 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number232 index231 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp comments">//if target is found</code></div><div class="line number233 index232 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number234 index233 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number235 index234 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(current.right != </code><code class="csharp keyword">null</code><code class="csharp plain">)</code></div><div class="line number236 index235 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number237 index236 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp comments">//delete its inorder successor</code></div><div class="line number238 index237 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">parent = current.right;</code></div><div class="line number239 index238 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">while</code> <code class="csharp plain">(parent.left != </code><code class="csharp keyword">null</code><code class="csharp plain">)</code></div><div class="line number240 index239 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number241 index240 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">parent = parent.left;</code></div><div class="line number242 index241 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number243 index242 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current.data = parent.data;</code></div><div class="line number244 index243 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current.right = Delete(current.right, parent.data);</code></div><div class="line number245 index244 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(balance_factor(current) == 2)</code><code class="csharp comments">//rebalancing</code></div><div class="line number246 index245 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number247 index246 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">if</code> <code class="csharp plain">(balance_factor(current.left) &lt;= 0)</code></div><div class="line number248 index247 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number249 index248 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">current = RotateLL(current);</code></div><div class="line number250 index249 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number251 index250 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code> <code class="csharp plain">{ current = RotateLR(current); }</code></div><div class="line number252 index251 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number253 index252 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number254 index253 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">else</code></div><div class="line number255 index254 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">{</code></div><div class="line number256 index255 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">current.left;</code></div><div class="line number257 index256 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number258 index257 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number259 index258 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number260 index259 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp keyword">return</code> <code class="csharp plain">current;</code></div><div class="line number261 index260 alt2"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div><div class="line number262 index261 alt1"><code class="csharp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="csharp plain">}</code></div></div></td></tr></tbody></table></div></div>
+<div style="width: 958px" class="wp-caption aligncenter"><img style="background-color:white;" src="./AVL Tree in C# _ Bits and Pieces of Code_files/f0b88-img234.gif" alt="" width="948" height="587"><p class="wp-caption-text"><span style="color:#000000;">AVL Tree depictions</span></p></div>
+<div data-shortcode="caption" id="attachment_702" style="width: 359px" class="wp-caption aligncenter"><a href="https://simpledevcode.files.wordpress.com/2014/09/capture1.png"><img class="wp-image-702 size-full" src="https://simpledevcode.files.wordpress.com/2014/09/capture1.png?w=700" alt=""></a><p class="wp-caption-text"><span style="color:#000000;">AVL Tree (unbalanced and balanced tree process)</span></p></div>
+<div style="width: 356px" class="wp-caption aligncenter"><img class="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/Tree_rotation_animation_250x250.gif" alt="" width="350" height="350"><p class="wp-caption-text"><span style="color:#000000;">Tree rotation animation</span></p></div>
+<h3 style="background-color:yellow;"><span style="color:#000000;"><a style="color:#000000;" href="http://www.site.uottawa.ca/~stan/csi2514/applets/avl/BT.html">Interactive AVL Tree Applet demo.</a></span></h3>
+		<div class="wpcnt">
+			<div class="wpa wpmrec">
+				<a class="wpa-about" href="https://wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+				<div class="u">
+					<script type="text/javascript">
+					(function(g){g.__ATA.initAd({sectionId:26942, width:300, height:250});})(window);
+					</script><div id="automattic-id-1822" data-section="26942" style="width:300px; height:250px;"><iframe width="300" height="250" style="border:none;width:300px;height:250px;" frameborder="0" scrolling="no" name="fif_slot_automattic-id-_automattic-id-1822" id="fif_slot_automattic-id-_automattic-id-1822" src="javascript:"<html><body style='background:transparent;margin:0%;'></body></html>""></iframe></div>
+				</div>
+			</div>
+		</div><div id="jp-post-flair" class="sharedaddy sd-rating-enabled sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-269" class="share-twitter sd-button share-icon" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?share=twitter&nb=1" target="_blank" title="Click to share on Twitter"><span>Twitter<span class="share-count">3</span></span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-269" class="share-facebook sd-button share-icon" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?share=facebook&nb=1" target="_blank" title="Share on Facebook"><span>Facebook</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-269" class="share-google-plus-1 sd-button share-icon" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?share=google-plus-1&nb=1" target="_blank" title="Click to share on Google+"><span>Google</span></a></li><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?share=email&nb=1" target="_blank" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button share-icon" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#print" target="_blank" title="Click to print"><span>Print</span></a></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-269" class="share-linkedin sd-button share-icon" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?share=linkedin&nb=1" target="_blank" title="Click to share on LinkedIn"><span>LinkedIn</span></a></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?share=reddit&nb=1" target="_blank" title="Click to share on Reddit"><span>Reddit</span></a></li><li class="share-tumblr"><a rel="nofollow" data-shared="" class="share-tumblr sd-button share-icon" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?share=tumblr&nb=1" target="_blank" title="Click to share on Tumblr"><span>Tumblr</span></a></li><li class="share-pinterest"><a rel="nofollow" data-shared="sharing-pinterest-269" class="share-pinterest sd-button share-icon" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?share=pinterest&nb=1" target="_blank" title="Click to share on Pinterest"><span>Pinterest</span></a></li><li class="share-pocket"><a rel="nofollow" data-shared="" class="share-pocket sd-button share-icon" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?share=pocket&nb=1" target="_blank" title="Click to share on Pocket"><span>Pocket</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-65248313-269-5619406f4e9e6" data-src="//widgets.wp.com/likes/#blog_id=65248313&amp;post_id=269&amp;origin=simpledevcode.wordpress.com&amp;obj_id=65248313-269-5619406f4e9e6" data-name="like-post-frame-65248313-269-5619406f4e9e6"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-65248313-269-5619406f4e9e6" height="55px" width="100%" frameborder="0" src="./AVL Tree in C# _ Bits and Pieces of Code_files/saved_resource(7).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+		<a class="entry-date" href="./AVL Tree in C# _ Bits and Pieces of Code_files/AVL Tree in C# _ Bits and Pieces of Code.html">September 16, 2014</a> in <a href="https://simpledevcode.wordpress.com/category/c/" rel="category tag">C#</a>, <a href="https://simpledevcode.wordpress.com/category/data-structures/" rel="category tag">Data Structures</a>, <a href="https://simpledevcode.wordpress.com/category/java/" rel="category tag">Java</a>, <a href="https://simpledevcode.wordpress.com/category/searching-sorting/" rel="category tag">Searching &amp; Sorting</a>. Tags: <a href="https://simpledevcode.wordpress.com/tag/algorithm/" rel="tag">algorithm</a>, <a href="https://simpledevcode.wordpress.com/tag/avl-tree/" rel="tag">avl tree</a>, <a href="https://simpledevcode.wordpress.com/tag/big-o/" rel="tag">big-o</a>, <a href="https://simpledevcode.wordpress.com/tag/binary-search-tree/" rel="tag">binary search tree</a>, <a href="https://simpledevcode.wordpress.com/tag/bst/" rel="tag">bst</a>, <a href="https://simpledevcode.wordpress.com/tag/c-programming/" rel="tag">c programming</a>, <a href="https://simpledevcode.wordpress.com/tag/c-4/" rel="tag">c#</a>, <a href="https://simpledevcode.wordpress.com/tag/cc/" rel="tag">c/c++</a>, <a href="https://simpledevcode.wordpress.com/tag/computer-science/" rel="tag">computer science</a>, <a href="https://simpledevcode.wordpress.com/tag/data-structures-2/" rel="tag">data structures</a>, <a href="https://simpledevcode.wordpress.com/tag/how-to-implement-avl-tree/" rel="tag">how to implement avl tree</a>, <a href="https://simpledevcode.wordpress.com/tag/java-2/" rel="tag">java</a>, <a href="https://simpledevcode.wordpress.com/tag/node/" rel="tag">node</a>, <a href="https://simpledevcode.wordpress.com/tag/recursive/" rel="tag">recursive</a>, <a href="https://simpledevcode.wordpress.com/tag/searching/" rel="tag">searching</a>, <a href="https://simpledevcode.wordpress.com/tag/self-balancing/" rel="tag">self balancing</a>, <a href="https://simpledevcode.wordpress.com/tag/sorting/" rel="tag">sorting</a>, <a href="https://simpledevcode.wordpress.com/tag/tree/" rel="tag">tree</a>, <a href="https://simpledevcode.wordpress.com/tag/tree-rotation/" rel="tag">tree rotation</a>, <a href="https://simpledevcode.wordpress.com/tag/tutorial/" rel="tag">tutorial</a>
+			</footer><!-- .entry-meta -->
+</article><!-- #post-## -->
+			<div class="related-content">
+	<h3 class="related-content-title">Related posts</h3>
+	
+		<article id="post-989" class="post-989 post type-post status-publish format-standard has-post-thumbnail hentry category-c tag-net tag-abstract-data-types tag-c-4 tag-data-structure tag-generic-programming tag-how-to-tutorial tag-linked-list tag-oop-2 tag-operator-overloading tag-templates">
+
+						<div class="entry-thumbnail">
+				<a href="https://simpledevcode.wordpress.com/2015/08/20/generic-programming-in-c-net/"><img width="50" height="50" src="https://simpledevcode.files.wordpress.com/2014/08/csharp-logo.png?w=50&h=50&crop=1" class="attachment-expound-mini wp-post-image" alt="csharp-logo"></a>
+			</div>
+			
+			<header class="entry-header">
+				<h3 class="entry-title"><a href="https://simpledevcode.wordpress.com/2015/08/20/generic-programming-in-c-net/" rel="bookmark">Generic Programming in C#.Net</a></h3>
+			</header><!-- .entry-header -->
+
+		</article>
+
+	
+		<article id="post-987" class="post-987 post type-post status-publish format-standard has-post-thumbnail hentry category-c category-c-2 category-data-structures category-java tag-net tag-c-4 tag-c-3 tag-data-structure tag-heap tag-heap-data-structure tag-how-to tag-java-2 tag-priority-queue tag-tutorial">
+
+						<div class="entry-thumbnail">
+				<a href="https://simpledevcode.wordpress.com/2015/08/10/priority-queue-tutorial-c-c-java/"><img width="50" height="50" src="./AVL Tree in C# _ Bits and Pieces of Code_files/priorityque.gif" class="attachment-expound-mini wp-post-image" alt="priorityQueue"></a>
+			</div>
+			
+			<header class="entry-header">
+				<h3 class="entry-title"><a href="https://simpledevcode.wordpress.com/2015/08/10/priority-queue-tutorial-c-c-java/" rel="bookmark">Priority Queue Tutorial (C#, C++, Java)</a></h3>
+			</header><!-- .entry-header -->
+
+		</article>
+
+	
+		<article id="post-997" class="post-997 post type-post status-publish format-standard has-post-thumbnail hentry category-c category-c-2 category-data-structures category-java tag-net tag-algorithm tag-arrays tag-binary-heap tag-binary-tree tag-c-programming tag-c-4 tag-c-3 tag-data-structure tag-heap tag-heap-data-structure tag-how-to-tutorial tag-implementation tag-java-2 tag-recursion">
+
+						<div class="entry-thumbnail">
+				<a href="https://simpledevcode.wordpress.com/2015/08/05/the-heap-data-structure-c-java-c/"><img width="50" height="50" src="./AVL Tree in C# _ Bits and Pieces of Code_files/smtku.png" class="attachment-expound-mini wp-post-image" alt="Max-Heap with array representation"></a>
+			</div>
+			
+			<header class="entry-header">
+				<h3 class="entry-title"><a href="https://simpledevcode.wordpress.com/2015/08/05/the-heap-data-structure-c-java-c/" rel="bookmark">The Heap Data Structure (C++, Java, C#)</a></h3>
+			</header><!-- .entry-header -->
+
+		</article>
+
+	</div>
+
+				<nav role="navigation" id="nav-below" class="navigation-post">
+		<h1 class="screen-reader-text">Post navigation</h1>
+
+	
+		<div class="nav-previous"><a href="https://simpledevcode.wordpress.com/2014/08/31/jquery-simple-example/" rel="prev"><span class="meta-nav">←</span> jQuery simple example</a></div>		<div class="nav-next"><a href="https://simpledevcode.wordpress.com/2014/09/19/installing-infinity-conky-theme-for-ubuntulinuxfedora/" rel="next">Installing Infinity Conky Theme for Ubuntu/Linux/Fedora <span class="meta-nav">→</span></a></div>
+	
+	</nav><!-- #nav-below -->
+	
+			
+	<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			4 thoughts on “<span>AVL Tree in C#</span>”		</h2>
+
+		
+		<ol class="comment-list">
+				<li class="post pingback">
+		<p>Pingback: <a href="https://simpledevcode.wordpress.com/2014/12/25/red-black-tree-in-c/" rel="external nofollow" class="url">Red-Black Tree in C# | Bits and Pieces of Code</a></p>
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-210">
+		<article id="comment-210" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="https://i2.wp.com/pbs.twimg.com/profile_images/438180096633864193/hRUGgAgW_normal.jpeg?resize=40%2C40" class="avatar avatar-40" height="40" width="40">					<cite class="fn"><a href="http://twitter.com/GoodNPlenty333" rel="external nofollow" class="url">GoodNPlenty333 (@GoodNPlenty333)</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/comment-page-1/#comment-210"><time datetime="2015-07-03T15:44:11+00:00">
+					July 3, 2015 at 3:44 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>You are recalculating the height of each node recursively, which is very costly. You can gain significant performance improvements by storing the height in each node.</p>
+<p id="comment-like-210" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?like_comment=210&_wpnonce=83f060db0a" class="comment-like-link needs-login" rel="nofollow" data-blog="65248313"><span>Like</span></a><span id="comment-like-count-210" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?replytocom=210#respond" onclick="return addComment.moveForm( &quot;comment-210&quot;, &quot;210&quot;, &quot;respond&quot;, &quot;269&quot; )" aria-label="Reply to GoodNPlenty333 (@GoodNPlenty333)">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-karimo818 comment-author-is-site-member bypostauthor odd alt depth-2 highlander-comment" id="li-comment-211">
+		<article id="comment-211" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/fd7f92cb366cf671b01dbc80a43dd8a4" class="avatar avatar-40 grav-hashed grav-hijack" height="40" width="40" id="grav-fd7f92cb366cf671b01dbc80a43dd8a4-0">					<cite class="fn"><a href="https://simpledevcode.wordpress.com/" rel="external nofollow" class="url">Karim Oumghar</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/comment-page-1/#comment-211"><time datetime="2015-07-07T17:39:52+00:00">
+					July 7, 2015 at 5:39 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>I am aware of this. At the moment I am busy with other things however I have kept a note of this and will update this tutorial soon. Thanks for your feedback.</p>
+<p id="comment-like-211" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?like_comment=211&_wpnonce=20ec4bf017" class="comment-like-link needs-login" rel="nofollow" data-blog="65248313"><span>Like</span></a><span id="comment-like-count-211" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?replytocom=211#respond" onclick="return addComment.moveForm( &quot;comment-211&quot;, &quot;211&quot;, &quot;respond&quot;, &quot;269&quot; )" aria-label="Reply to Karim Oumghar">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-aljensen even thread-odd thread-alt depth-1 highlander-comment" id="li-comment-224">
+		<article id="comment-224" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/1c4276411596e24e46116682dc397c47" class="avatar avatar-40 grav-hashed grav-hijack" height="40" width="40" id="grav-1c4276411596e24e46116682dc397c47-0">					<cite class="fn">aljensen</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/comment-page-1/#comment-224"><time datetime="2015-09-22T17:12:12+00:00">
+					September 22, 2015 at 5:12 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Reblogged this on <a href="https://dotnetdisasters.wordpress.com/2015/09/23/avl-tree-in-c/" rel="nofollow">.Net Programming with Al Jensen</a>.</p>
+<p id="comment-like-224" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?like_comment=224&_wpnonce=f5507f2cc7" class="comment-like-link needs-login" rel="nofollow" data-blog="65248313"><span>Like</span></a><span id="comment-like-count-224" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+			<a rel="nofollow" class="comment-reply-link" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/?replytocom=224#respond" onclick="return addComment.moveForm( &quot;comment-224&quot;, &quot;224&quot;, &quot;respond&quot;, &quot;269&quot; )" aria-label="Reply to aljensen">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+							<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://simpledevcode.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="e4046ba65e"><input type="hidden" name="_wp_http_referer" value="/2014/09/16/avl-tree-in-c/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; transition: none; height: 0px !important; min-height: 0px !important; font-family: Arial, Helvetica, Tahoma, Verdana, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: 20px; width: 678px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 40px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./AVL Tree in C# _ Bits and Pieces of Code_files/saved_resource.html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./AVL Tree in C# _ Bits and Pieces of Code_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./AVL Tree in C# _ Bits and Pieces of Code_files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./AVL Tree in C# _ Bits and Pieces of Code_files/ad516503a11cd5ca435acc9bb6523536" alt="Twitter picture" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./AVL Tree in C# _ Bits and Pieces of Code_files/ad516503a11cd5ca435acc9bb6523536" alt="Facebook photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./AVL Tree in C# _ Bits and Pieces of Code_files/ad516503a11cd5ca435acc9bb6523536" alt="Google+ photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p><p class="post-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;" tabindex="7"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog" style="display: inline;">Notify me of new posts via email.</label></p></div>
+
+						
+						<p class="form-submit" style="display: none;"><input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="269" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="d5fb557aa8"></p>
+<input type="hidden" name="genseq" value="1444495471">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1444495471628"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+
+		
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+	<div id="secondary" class="widget-area" role="complementary">
+				<aside id="search-2" class="widget widget_search">	<form method="get" id="searchform" class="searchform" action="https://simpledevcode.wordpress.com/" role="search">
+		<label for="s" class="screen-reader-text">Search</label>
+		<input type="search" class="field" name="s" value="" id="s" placeholder="Search …">
+		<input type="submit" class="submit" id="searchsubmit" value="Search">
+	</form>
+</aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h1 class="widget-title">Recent Posts</h1>		<ul>
+					<li>
+				<a href="https://simpledevcode.wordpress.com/2015/09/06/a-snake-game-in-javascript/">A Snake Game in JavaScript</a>
+						</li>
+					<li>
+				<a href="https://simpledevcode.wordpress.com/2015/08/20/generic-programming-in-c-net/">Generic Programming in C#.Net</a>
+						</li>
+					<li>
+				<a href="https://simpledevcode.wordpress.com/2015/08/10/android-how-to-make-a-phone-call/">Android: How to make a phone call</a>
+						</li>
+					<li>
+				<a href="https://simpledevcode.wordpress.com/2015/08/10/priority-queue-tutorial-c-c-java/">Priority Queue Tutorial (C#, C++, Java)</a>
+						</li>
+					<li>
+				<a href="https://simpledevcode.wordpress.com/2015/08/07/javascript-tutorial/">JavaScript Animations Tutorial</a>
+						</li>
+				</ul>
+		</aside><aside id="categories-2" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-651"><a href="https://simpledevcode.wordpress.com/category/articles/">Articles</a>
+</li>
+	<li class="cat-item cat-item-2426"><a href="https://simpledevcode.wordpress.com/category/c/">C#</a>
+</li>
+	<li class="cat-item cat-item-1634593"><a href="https://simpledevcode.wordpress.com/category/c-2/">C++</a>
+</li>
+	<li class="cat-item cat-item-37687"><a href="https://simpledevcode.wordpress.com/category/data-structures/">Data Structures</a>
+</li>
+	<li class="cat-item cat-item-475"><a href="https://simpledevcode.wordpress.com/category/database/">Database</a>
+</li>
+	<li class="cat-item cat-item-318057"><a href="https://simpledevcode.wordpress.com/category/gdi/">GDI+</a>
+</li>
+	<li class="cat-item cat-item-84027"><a href="https://simpledevcode.wordpress.com/category/htmlcss/">HTML/CSS</a>
+</li>
+	<li class="cat-item cat-item-1017"><a href="https://simpledevcode.wordpress.com/category/java/">Java</a>
+</li>
+	<li class="cat-item cat-item-34939378"><a href="https://simpledevcode.wordpress.com/category/javascript-2/">Javascript</a>
+</li>
+	<li class="cat-item cat-item-4826"><a href="https://simpledevcode.wordpress.com/category/oop/">OOP</a>
+</li>
+	<li class="cat-item cat-item-174665441"><a href="https://simpledevcode.wordpress.com/category/searching-sorting/">Searching &amp; Sorting</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="https://simpledevcode.wordpress.com/category/uncategorized/">Uncategorized</a>
+</li>
+		</ul>
+</aside><aside id="authors-4" class="widget widget_authors"><h1 class="widget-title"></h1><ul><li><a href="https://simpledevcode.wordpress.com/author/karimo818/"> <img alt="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/fd7f92cb366cf671b01dbc80a43dd8a4(1)" class="avatar avatar-96 grav-hashed" height="96" width="96" id="grav-fd7f92cb366cf671b01dbc80a43dd8a4-1"> <strong>Karim Oumghar</strong></a></li></ul></aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h1 class="widget-title">Recent Comments</h1>				<table class="recentcommentsavatar" cellspacing="0" cellpadding="0" border="0">
+					<tbody><tr><td title="aljensen" class="recentcommentsavatartop" style="height:48px; width:48px;"><img alt="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/1c4276411596e24e46116682dc397c47(1)" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-1c4276411596e24e46116682dc397c47-1"></td><td class="recentcommentstexttop" style="">aljensen on <a href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/comment-page-1/#comment-224">AVL Tree in C#</a></td></tr><tr><td title="aljensen" class="recentcommentsavatarend" style="height:48px; width:48px;"><img alt="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/1c4276411596e24e46116682dc397c47(1)" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-1c4276411596e24e46116682dc397c47-2"></td><td class="recentcommentstextend" style="">aljensen on <a href="https://simpledevcode.wordpress.com/2015/08/05/the-heap-data-structure-c-java-c/comment-page-1/#comment-223">The Heap Data Structure (C++,…</a></td></tr><tr><td title="Nikita" class="recentcommentsavatarend" style="height:48px; width:48px;"><img alt="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/7917e2bcd3bb58590b54c275037fecde" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-7917e2bcd3bb58590b54c275037fecde-0"></td><td class="recentcommentstextend" style="">Nikita on <a href="https://simpledevcode.wordpress.com/2015/08/10/priority-queue-tutorial-c-c-java/comment-page-1/#comment-219">Priority Queue Tutorial (C#, C…</a></td></tr><tr><td title="Karim Oumghar" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="https://simpledevcode.wordpress.com/" rel="nofollow"><img alt="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/fd7f92cb366cf671b01dbc80a43dd8a4(2)" class="avatar avatar-48 grav-hashed" height="48" width="48" id="grav-fd7f92cb366cf671b01dbc80a43dd8a4-2"></a></td><td class="recentcommentstextend" style=""><a href="https://simpledevcode.wordpress.com/" rel="nofollow">Karim Oumghar</a> on <a href="https://simpledevcode.wordpress.com/2015/08/10/priority-queue-tutorial-c-c-java/comment-page-1/#comment-218">Priority Queue Tutorial (C#, C…</a></td></tr><tr><td title="dimezis" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="http://gravatar.com/dimezis" rel="nofollow"><img alt="" src="./AVL Tree in C# _ Bits and Pieces of Code_files/c03116cc2ac1d8e53a16fda1af383b8b" class="avatar avatar-48 grav-hashed" height="48" width="48" id="grav-c03116cc2ac1d8e53a16fda1af383b8b-0"></a></td><td class="recentcommentstextend" style=""><a href="http://gravatar.com/dimezis" rel="nofollow">dimezis</a> on <a href="https://simpledevcode.wordpress.com/2015/08/10/priority-queue-tutorial-c-c-java/comment-page-1/#comment-217">Priority Queue Tutorial (C#, C…</a></td></tr>				</tbody></table>
+				</aside><aside id="linkcat-174670562" class="widget widget_links"><h1 class="widget-title">GitHub</h1>
+	<ul class="xoxo blogroll">
+<li><a href="https://github.com/karimo94">My GitHub Profile</a></li>
+
+	</ul>
+</aside>
+<aside id="linkcat-306242164" class="widget widget_links"><h1 class="widget-title">LinkedIn</h1>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.linkedin.com/in/karimoumghar" rel="me">LinkedIn</a></li>
+
+	</ul>
+</aside>
+<aside id="blog_subscription-3" class="widget widget_blog_subscription"><h1 class="widget-title"><label for="subscribe-field">Follow Blog via Email</label></h1>
+				<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="subscribe-blog">
+											<p>Enter your email address to follow this blog and receive notifications of new posts by email.</p>
+						<p><input type="text" name="email" style="width: 95%; padding: 1px 2px" placeholder="Enter your email address" value="" id="subscribe-field"></p>
+					
+					<p>
+						<input type="hidden" name="action" value="subscribe">
+						<input type="hidden" name="blog_id" value="65248313">
+						<input type="hidden" name="source" value="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/">
+						<input type="hidden" name="sub-type" value="widget">
+						<input type="hidden" name="redirect_fragment" value="blog_subscription-3">
+						<input type="hidden" id="_wpnonce" name="_wpnonce" value="77f9770390">						<input type="submit" value="Follow">
+					</p>
+				</form>
+			
+</aside><aside id="follow_button_widget-3" class="widget widget_follow_button_widget">
+		<iframe src="./AVL Tree in C# _ Bits and Pieces of Code_files/index.html" width="100%" height="20" frameborder="0" scrolling="no"></iframe>
+		<script type="text/javascript">(function(d){var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');p.type = 'text/javascript';p.async = true;p.src = '//widgets.wp.com/platform.js';f.parentNode.insertBefore(p,f);}(document));</script>
+
+		</aside><aside id="text-2" class="widget widget_text"><h1 class="widget-title">Live Traffic Stats</h1>			<div class="textwidget"><a href="http://feedjit.com/ir1/3c20e126ebebb753153046e462b52ce4/"><img src="./AVL Tree in C# _ Bits and Pieces of Code_files/3c20e126ebebb753153046e462b52ce4.png" alt="" border="0"></a></div>
+		</aside>	</div><!-- #secondary -->
+	</div><!-- #main -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info">
+			<a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com</a>.
+<a href="https://wordpress.com/themes/expound/" title="Learn more about this theme">The Expound Theme</a>.		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./AVL Tree in C# _ Bits and Pieces of Code_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./AVL Tree in C# _ Bits and Pieces of Code_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-cff781f5937a7eb654b15d8e68456e61">
+	</div>
+	<div class="grofile-hash-map-fd7f92cb366cf671b01dbc80a43dd8a4">
+	</div>
+	<div class="grofile-hash-map-1c4276411596e24e46116682dc397c47">
+	</div>
+	<div class="grofile-hash-map-7917e2bcd3bb58590b54c275037fecde">
+	</div>
+	<div class="grofile-hash-map-c03116cc2ac1d8e53a16fda1af383b8b">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/simpledevcode.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/simpledevcode.wordpress.com\/wp-login.php?action=logout&_wpnonce=7da1ae1c5c","homeURL":"https:\/\/simpledevcode.wordpress.com\/","postID":"269","gravDefault":"retro","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./AVL Tree in C# _ Bits and Pieces of Code_files/saved_resource(2)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -279px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Bits and Pieces of Code”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 687 other followers</p>
+			<p><input type="email" name="email" placeholder="Enter your email address" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="65248313">
+			<input type="hidden" name="source" value="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="77f9770390"><input type="hidden" name="_wp_http_referer" value="/2014/09/16/avl-tree-in-c/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type="text/javascript" charset="UTF-8" id="polldaddyRatings"><!--//--><![CDATA[//><!--
+PDRTJS_settings_7497548_post_269={"id":7497548,"unique_id":"wp-post-269","title":"AVL%20Tree%20in%20C%23","permalink":"https:\/\/simpledevcode.wordpress.com\/2014\/09\/16\/avl-tree-in-c\/","item_id":"_post_269"}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_7497548_post_269 == 'undefined' ){PDRTJS_7497548_post_269 = new PDRTJS_RATING( PDRTJS_settings_7497548_post_269 );}}
+//--><!]]></script><script type="text/javascript" charset="UTF-8" src="./AVL Tree in C# _ Bits and Pieces of Code_files/rating.js"></script>
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/simpledevcode.wordpress.com\/2014\/09\/16\/avl-tree-in-c\/":269};
+	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+			
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-tumblr' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtumblr', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+							<script type="text/javascript">
+				jQuery(document).on('ready', function(){
+					jQuery('body').on('click', 'a.share-pinterest', function(e){
+						e.preventDefault();
+						// Load Pinterest Bookmarklet code
+						var s = document.createElement("script");
+						s.type = "text/javascript";
+						s.src = window.location.protocol + "//assets.pinterest.com/js/pinmarklet.js?r=" + ( Math.random() * 99999999 );
+						var x = document.getElementsByTagName("script")[0];
+						x.parentNode.insertBefore(s, x);
+						// Trigger Stats
+						var s = document.createElement("script");
+						s.type = "text/javascript";
+						s.src = this + ( this.toString().indexOf( '?' ) ? '&' : '?' ) + 'js_only=1';
+						var x = document.getElementsByTagName("script")[0];
+						x.parentNode.insertBefore(s, x);
+					});
+				});
+			</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-pocket' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcompocket', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="./AVL Tree in C# _ Bits and Pieces of Code_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./AVL Tree in C# _ Bits and Pieces of Code_files/form.js"></script>
+<script type="text/javascript" src="./AVL Tree in C# _ Bits and Pieces of Code_files/saved_resource(3)"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var comment_like_text = {"loading":"Loading..."};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./AVL Tree in C# _ Bits and Pieces of Code_files/saved_resource(4)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="./AVL Tree in C# _ Bits and Pieces of Code_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'65248313','blog_tz':'-8','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'65248313','v':'wpcom','tz':'-8','user_id':'0','post':'269','subd':'simpledevcode'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhRW2lIRjN0dSZwJjcuZUFddjg4OXdMZDdxRFErJmUwTnJ+Y1VFbmsvTGpOZ2RJJjR6SnJLNGcuVmZ8ckZTYU9yaVpETGV5UGZyZm9JdnV0dCZdP3xONDg0fFc2YlBCSUgsYyxVNGtuWD9xUj9RVT8wS2M4Zy5hNmd2Q1dvUnJWeXJubFtvMSVpYSwveGVfeklHNyY/QjRhcnNWcG9kOWpHLXptbTJqMmh2YmVtUV8mVXpxN1MuTGU4Y0smLUlSaixPLm5TTHdkdHl8K2Z5fkY9YSZhNTZMY0YyYnouTy1qaF93LTlCVllBbWJqSGRHVzM1d3daP2J1MmwvSkh6WXM='}]);
+_stq.push([ 'clickTrackerInit', '65248313', '269' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+<div class="comment-likes-overlay" style="display: none;"></div><div id="sharing_email" style="display: none;">
+		<form action="./AVL Tree in C# _ Bits and Pieces of Code_files/AVL Tree in C# _ Bits and Pieces of Code.html" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email" value="">
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name" value="">
+
+				<label for="source_email">Your Email Address</label>
+				<input type="email" name="source_email" id="source_email" value="">
+
+						<input type="text" id="jetpack-source_f_name" name="source_f_name" class="input" value="" size="25" autocomplete="off">
+			<script> document.getElementById('jetpack-source_f_name').value = ''; </script>
+			<div class="recaptcha" id="sharing_recaptcha"></div><input type="hidden" name="recaptcha_public_key" id="recaptcha_public_key" value="6LcYW8MSAAAAADBAuEH9yaPcF7lWh11Iq62ZKtoo">
+			<img style="float: right; display: none" class="loading" src="./AVL Tree in C# _ Bits and Pieces of Code_files/loading.gif" alt="loading" width="16" height="16">
+			<input type="submit" value="Send Email" class="sharing_send">
+			<a rel="nofollow" href="https://simpledevcode.wordpress.com/2014/09/16/avl-tree-in-c/#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div><img src="./AVL Tree in C# _ Bits and Pieces of Code_files/g.gif" id="wpstats"></body></html>

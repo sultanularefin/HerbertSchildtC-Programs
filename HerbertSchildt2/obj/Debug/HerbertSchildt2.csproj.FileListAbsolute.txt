@@ -1,0 +1,6 @@
+C:\Users\Taxi\Documents\Visual Studio 2017\Projects\HerbertSchildt2\HerbertSchildt2\obj\Debug\HerbertSchildt2.csprojResolveAssemblyReference.cache
+C:\Users\Taxi\Documents\Visual Studio 2017\Projects\HerbertSchildt2\HerbertSchildt2\bin\Debug\HerbertSchildt2.exe.config
+C:\Users\Taxi\Documents\Visual Studio 2017\Projects\HerbertSchildt2\HerbertSchildt2\bin\Debug\HerbertSchildt2.exe
+C:\Users\Taxi\Documents\Visual Studio 2017\Projects\HerbertSchildt2\HerbertSchildt2\bin\Debug\HerbertSchildt2.pdb
+C:\Users\Taxi\Documents\Visual Studio 2017\Projects\HerbertSchildt2\HerbertSchildt2\obj\Debug\HerbertSchildt2.exe
+C:\Users\Taxi\Documents\Visual Studio 2017\Projects\HerbertSchildt2\HerbertSchildt2\obj\Debug\HerbertSchildt2.pdb

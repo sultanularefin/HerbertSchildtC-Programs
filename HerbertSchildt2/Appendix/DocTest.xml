@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Test</name>
+    </assembly>
+    <members>
+        <member name="T:Test">
+            <remark>
+            This is an example of multiline XML documentation.
+            The Test class demonstrates several tags.
+            </remark>
+        </member>
+        <member name="M:Test.Main">
+            <summary>
+            Main is where execution begins.
+            </summary>
+        </member>
+        <member name="M:Test.Summation(System.Int32)">
+            <summary>
+            Summation returns the summation of its argument.
+            <param name="val">
+            The value to be summed is passed in val.
+            </param>
+            <see cref="T:System.Int32"> </see>
+            <returns>
+            The summation is returned as an int value.
+            </returns>
+            </summary>
+        </member>
+    </members>
+</doc>

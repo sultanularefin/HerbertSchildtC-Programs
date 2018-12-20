@@ -1,0 +1,6 @@
+PDRTJS_7497548_post_269.avg_rating = 5;
+PDRTJS_7497548_post_269.votes = 1;		
+PDRTJS_settings_7497548_post_269= { "type" : "stars" , "star_color" : "green" , "size" : "sml" , "custom_star" : "" , "font_align" : "left" , "font_position" : "right" , "font_family" : "trebuchet ms" , "font_size" : "10px" , "font_line_height" : "6px" , "font_bold" : "bold" , "font_italic" : "normal" , "text_vote" : "Vote" , "text_votes" : "Votes" , "text_rate_this" : "Rate This" , "text_1_star" : "Very Poor" , "text_2_star" : "Poor" , "text_3_star" : "Average" , "text_4_star" : "Good" , "text_5_star" : "Excellent" , "text_thank_you" : "Thank You" , "text_rate_up" : "Rate Up" , "text_rate_down" : "Rate Down" , "font_color" : "FFFFFF" , "text_popcontent" : "Most Popular Content" , "text_close" : "Close" , "text_all" : "All" , "text_today" : "Today" , "text_thisweek" : "This Week" , "text_thismonth" : "This Month" , "text_rated" : "Rated" , "text_noratings" : "There are no rated items for this period" , "popup" : "on"  };
+PDRTJS_7497548_post_269.init();		
+PDRTJS_7497548_post_269.token='9e5059e1854ca01caf5cbc2ef0b06957';
+/*7497548,_post_269,wp-post-269,1743968510,5-1*/
